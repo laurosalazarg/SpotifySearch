@@ -48,7 +48,7 @@ You should see something like this: <br>
 
 Once you've created your application, you'll receive a **client ID** and a **client secret**. These are your credentials, you should store them in a **safe environment**.
 
-**IMPORTANT: You should not store your credentials inside of your code if you're planning to publish it. You should use Environment Variables instead. Check [this section](https://github.com/matcsantos/TestRepo#keeping-your-credentials-safe) to learn how to keep your credentials safe.**
+**IMPORTANT: You should not store your credentials inside of your code if you're planning to publish it. You should use Environment Variables instead. Check [this section](https://github.com/matcsantos/SpotifySearch#keeping-your-credentials-safe) to learn how to keep your credentials safe.**
 
 ## Making your first call
 So now that you have your **credentials**, you can start making your calls to the API. 
