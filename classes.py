@@ -99,11 +99,11 @@ class Track(Base):
         self.explicit = explicit
         self.disc_number = disc_number
         self.popularity = popularity
-        self.duration = duration
+        self.duration_ms = duration
 
 
-    def get_formated_duration(self):
-        duration_in_seconds = self.duration / 1000
+    def get_formatted_duration(self):
+        duration_in_seconds = self.duration_ms / 1000
         mins = math.floor(duration_in_seconds // 60)
         secs = math.floor(duration_in_seconds % 60)
         return {'minutes':mins, 'seconds':secs}
