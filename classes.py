@@ -2,6 +2,7 @@
 # THIS FILE IS RESPONSABLE FOR MANY CLASS DECLARATIONS
 
 import json
+import math
 from base64 import b64encode
 from urllib.request import urlretrieve
 from . import constructor
@@ -102,9 +103,9 @@ class Track(Base):
 
 
     def get_formated_duration(self):
-        duration = round(self.duration / 1000)
-        mins = duration // 60
-        secs = duration % 60
+        duration_in_seconds = self.duration / 1000
+        mins = math.floor(duration_in_seconds // 60)
+        secs = math.floor(duration_in_seconds % 60)
         return {'minutes':mins, 'seconds':secs}
 
 
