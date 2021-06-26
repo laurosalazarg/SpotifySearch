@@ -55,7 +55,7 @@ class TrackBase(Base):
         self.duration_ms = duration_ms
     
 
-    def get_formatted_duration(self):
+    def get_formatted_duration(self) -> dict:
         
         duration_in_seconds = self.duration_ms / 1000
         hours = 0
@@ -68,6 +68,27 @@ class TrackBase(Base):
         secs = math.floor(duration_in_seconds % 60)
 
         return {'hours':hours, 'minutes':mins, 'seconds':secs}
+    
+
+    def get_string_duration(self) -> str:
+     
+        duration = self.get_formatted_duration()
+        format = self.__format_duration
+        
+        hours = format(str(duration['hours']))
+        mins = format(str(duration['minutes']))
+        secs = format(str(duration['seconds']))       
+        
+        if int(hours):
+            return f'{hours}:{mins}:{secs}'
+        else:
+            return f'{mins}:{secs}'
+
+
+    def __format_duration(self, value:str):
+        if len(value) < 2:
+            return ('0' + value)
+        else: return value
 
 
 class Artist(Base):
