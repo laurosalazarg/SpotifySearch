@@ -1,7 +1,7 @@
 # Spotify Search
 <p>
     <a href="https://choosealicense.com/licenses/mit/" target="_blank">
-        <img src="https://img.shields.io/github/license/matcsantos/TeamSorter" alt="LICENSE">
+        <img src="https://img.shields.io/github/license/matcsantos/SpotifySearch" alt="LICENSE">
     </a>
     <a href="https://pypi.org/project/spotifysearch/0.0.1/" target="_blank">
         <img src="https://img.shields.io/pypi/v/spotifysearch?color=33BBFF&label=PIP" alt="LICENSE">
