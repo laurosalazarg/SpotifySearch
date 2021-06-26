@@ -11,6 +11,7 @@ def get_available_markets(data):
         return None
 
 
+# BASE ARGUMENTS FOR ALL CLASSES
 def base_arguments(data):
     arguments = dict(
         data = data,
@@ -22,24 +23,32 @@ def base_arguments(data):
     return arguments
 
 
+# BASE ARGUMENTS FOR TRACK-LIKE CLASSES
+def track_base_arguments(data):
+    arguments = dict(
+        explicit = data['explicit'],
+        duration_ms = data['duration_ms']
+    )
+    return arguments
+
+
 def artist(data):
     return classes.Artist(**base_arguments(data))
 
 
 def track(data):
     base = base_arguments(data)
+    track_base = track_base_arguments(data)
 
     arguments = dict(
+        preview = data['preview_url'],
         artists = [artist(artist_data) for artist_data in data['artists']],
         album = album(data['album']),
-        preview = classes.TrackPreview(data['preview_url']),
         available_markets = get_available_markets(data),
-        explicit = data['explicit'],
         disc_number = data['disc_number'],
-        popularity = data['popularity'],
-        duration = data['duration_ms']
+        popularity = data['popularity']
     )
-    return classes.Track(**{**base, **arguments})
+    return classes.Track(**{**base, **track_base, **arguments})
 
 
 def album(data):
@@ -53,3 +62,19 @@ def album(data):
         total_tracks = data['total_tracks']
     )
     return classes.Album(**{**base, **arguments})
+
+
+def episode(data):
+    base = base_arguments(data)
+    track_base = track_base_arguments(data)
+
+    arguments = dict(
+        preview = data['audio_preview_url'],
+        description = data['description'],
+        html_description = data['html_description'],
+        images = data['images'],
+        language = data['language'],
+        languages = data['languages'],
+        release_date = data['release_date']
+    )
+    return classes.Episode(**{**base, **track_base, **arguments})
