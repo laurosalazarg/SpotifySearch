@@ -112,7 +112,7 @@ class AlbumCover:
 class Album(Base):
 
     def __init__(self, data:dict, type:str, name:str, url:str, id:str, 
-    images:list[AlbumCover], artists:list[Artist], available_markets:list, release_date:str, total_tracks:int):
+    images:list, artists:list, available_markets:list, release_date:str, total_tracks:int):
         
         super().__init__(data, type, name, url, id)
         self.images = images
@@ -135,7 +135,7 @@ class TrackPreview:
 class Track(TrackBase):
 
     def __init__(self, data:dict, type:str, name:str, url:str, id:str, explicit:bool,
-    duration_ms:int, preview:TrackPreview, artists:list[Artist], album:Album, available_markets:list, 
+    duration_ms:int, preview:TrackPreview, artists:list, album:Album, available_markets:list, 
     disc_number:int, popularity:int):
         
         super().__init__(data, type, name, url, id, explicit, duration_ms)
@@ -203,17 +203,17 @@ class Results(Base):
         return [func(item) for item in data]
 
 
-    def get_tracks(self) -> list[Track]:
+    def get_tracks(self) -> list:
         return self.__get_items('track')
     
 
-    def get_artists(self) -> list[Artist]:
+    def get_artists(self) -> list:
         return self.__get_items('artist')
     
 
-    def get_albums(self) -> list[Album]:
+    def get_albums(self) -> list:
         return self.__get_items('album')
 
 
-    def get_episodes(self) -> list[Episode]:
+    def get_episodes(self) -> list:
         return self.__get_items('episode')
