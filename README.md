@@ -12,7 +12,7 @@ SpotifySearch is a complete wrapper for the Search API provided by Spotify writt
 
 It has built-in classes that helps you access the data returned by Spotify, alongside with useful methods for exporting data.
 
-Check the [documentation](https://readthedocs.org/) for more information on classes and methods.
+Check the [documentation](https://github.com/matcsantos/SpotifySearch/wiki) for more information on classes and methods.
 
 ## What you can do
 - Get Spotify catalog information about albums, artists or tracks that match a keyword string.
@@ -97,7 +97,7 @@ print(track.name, "-", track.artists[0].name)
 ```
 In a few lines of code, we got access to the API, retrieved some useful information of the first track in our results and displayed it.
 
-There are a lot of class attributes and methods that you can use to retrieve the information you need, you can check them out in the [documentation](https://readthedocs.org/).
+There are a lot of class attributes and methods that you can use to retrieve the information you need, you can check them out in the [documentation](https://github.com/matcsantos/SpotifySearch/wiki).
 
 ## Keeping your credentials safe
 As mentioned before, you should not store your credentials inside of your code. Specially if you are planning to publish it.
