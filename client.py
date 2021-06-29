@@ -12,7 +12,7 @@ class Client:
 
 
     def search(self, keywords:str, *, types:list = ['track'], filters:dict = {}, 
-    market:str = None, limit:int = None, offset:int = None) -> Results:        
+    market:str = None, limit:int = 20, offset:int = 0) -> Results:        
         access_token = self.auth.get_acess_token()
         args = (keywords, types, filters, market, limit, offset)
         response = calls.call_search(access_token, args)
