@@ -1,5 +1,5 @@
 
-# THIS FILE IS RESPONSABLE FOR MANY CLASS DECLARATIONS
+# THIS FILE IS RESPONSIBLE FOR MANY CLASS DECLARATIONS
 
 import json
 import math
@@ -29,7 +29,7 @@ class Authenticator:
 
 # OBJECTS
 
-# Base class for all classes
+# Base class for many classes
 class Base: 
     
     def __init__(self, data, type, name, url, id):
@@ -53,9 +53,10 @@ class TrackBase(Base):
         super().__init__(data, type, name, url, id)
         self.explicit = explicit
         self.duration_ms = duration_ms
+        self.string_duration = self.get_formatted_duration()
     
 
-    def get_formatted_duration(self) -> dict:
+    def get_duration(self) -> dict:
         
         duration_in_seconds = self.duration_ms / 1000
         hours = 0
@@ -70,9 +71,9 @@ class TrackBase(Base):
         return {'hours':hours, 'minutes':mins, 'seconds':secs}
     
 
-    def get_string_duration(self) -> str:
+    def get_formatted_duration(self) -> str:
      
-        duration = self.get_formatted_duration()
+        duration = self.get_duration()
         format = self.__format_duration
         
         hours = format(str(duration['hours']))
@@ -115,6 +116,7 @@ class Album(Base):
     images:list, artists:list, available_markets:list, release_date:str, total_tracks:int):
         
         super().__init__(data, type, name, url, id)
+        self.cover = images[0]
         self.images = images
         self.artists = artists
         self.available_markets = available_markets
@@ -141,6 +143,7 @@ class Track(TrackBase):
         super().__init__(data, type, name, url, id, explicit, duration_ms)
         self.preview = preview
         self.artists = artists
+        self.artist = artists[0]
         self.album = album
         self.available_markets = available_markets
         self.disc_number = disc_number
@@ -170,50 +173,41 @@ class Results(Base):
         self.data = data
     
 
-    def __get_items(self, type):     
-        
-        if type == 'artist':
-            try:
-                data = self.data['artists']['items']
-                func = constructor.artist
-            except KeyError:
-                return []
-        
-        elif type == 'track':
-            try:
-                data = self.data['tracks']['items']
-                func = constructor.track
-            except KeyError:
-                return []
-        
-        elif type == 'album':
-            try:
-                data = self.data['albums']['items']
-                func = constructor.album
-            except KeyError:
-                return []
-        
-        elif type == 'episode':
-            try:
-                data = self.data['episodes']['items']
-                func = constructor.episode
-            except KeyError:
-                return [] 
-        
-        return [func(item) for item in data]
+    def __get_items(self, item_type, function):      
+        try:
+            data = self.data[item_type]['items']
+            return [function(item) for item in data]       
+        except KeyError:
+            return []
 
 
     def get_tracks(self) -> list:
-        return self.__get_items('track')
+        return self.__get_items('tracks', constructor.track)
     
 
     def get_artists(self) -> list:
-        return self.__get_items('artist')
+        return self.__get_items('artists', constructor.artist)
     
 
     def get_albums(self) -> list:
-        return self.__get_items('album')
+        return self.__get_items('albums', constructor.album)
 
 
     def get_episodes(self) -> list:
-        return self.__get_items('episode')
+        return self.__get_items('episodes', constructor.episode)
+
+
+    def get_first_track(self) -> Track:
+        return self.get_tracks()[0]
+
+
+    def get_first_artist(self) -> Artist:
+        return self.get_artists()[0]
+
+
+    def get_first_album(self) -> Album:
+        return self.get_albums()[0]
+
+
+    def get_first_episode(self) -> Episode:
+        return self.get_episodes()[0]
