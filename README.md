@@ -38,7 +38,6 @@ from spotifysearch.client import Client
 #Check the documentation to learn how to get your credentials.
 myclient = Client('CLIENT_ID', 'CLIENT_SECRET')
 
-
 search_results = client.search('Never gonna give you up')
 track = search_results.get_first_track()
 
